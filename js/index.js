@@ -4,17 +4,19 @@ $( "#myform" ).validate({
     
             name:{
                 required:true,
-                letterson:true
+                letterson:true,
+                minlength:3
             },
             email:{
                 required:true,
-                mail:true,
+                validMail:true,
+                
                 
             },
             message:{
                 required:true,
                 minlength:40,
-                mes:true
+                validMes:true
             }
          },
          messages:{
@@ -39,20 +41,17 @@ $( "#myform" ).validate({
     
 $.validator.addMethod( "letterson", (value) => {
     value=value.trim();
-	return  /^[a-zA-Z]([a-z A-Z]){0,30}$/i.test( value );
+	return  /^[a-zA-Z]([a-z A-Z\.]){0,30}$/i.test( value );
 }, "Please Enter the Alphabets Only");
 
-$.validator.addMethod("mail", (value) =>{
+$.validator.addMethod("validMail", (value) =>{
     value= value.trim();
-    return /^([_\-\.0-9a-zA-Z])+@([_\-\.0-9a-zA-Z])+\.([a-zA-Z]){2,7}$/.test(value);
+    return /^([a-zA-Z])([_\-\.0-9a-zA-Z])+@([_\-\.0-9a-zA-Z])+\.([a-zA-Z]){2,3}$/i.test(value);
 },"Please Enter the Valid Email")
 
-
-
-
-$.validator.addMethod("mes",(value)=>{
+$.validator.addMethod("validMes",(value)=>{
     value=value.trim();
-    return /[a-z A-z0-9]{40}$/i.test(value);
+    return /[a-z A-z0-9]([_\-\.0-9a-zA-Z+*&^%$#@!?><"':;=])$/i.test(value)
 },"Please Enter at least 40 character");
 
 
